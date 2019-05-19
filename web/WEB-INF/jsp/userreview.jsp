@@ -11,12 +11,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Rating Confirmation</title>
     </head>
     <body>
-        <h1>USER REVIEW PAGE</h1>
+        <h1>Your review has been recorded.</h1>
+         <form  class="form-"  method="POST" action="/StreetChild/userview">
+       <button type = "submit" class="btn btn-primary" name="goback" style="opacity: .8;filter: alpha(opacity=50);">Go Back</button>     
         
-        
-                   <h1> ${saal}</h1>
+         </form>
     </body>
 </html>

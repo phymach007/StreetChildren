@@ -18,7 +18,7 @@
   
  
 body {
-    background-image: url(/StreetChild/resources/bootstrap/images/startbg.jpg);
+    
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -48,16 +48,16 @@ p {
 <body>
 
     <!-- Header -->
-    
+    <div style="background-color: #23527c ">
     <div class="container text-vertical text-center" style="position:relative;top: 50px;" >
             <h1>Welcome to Street Children Welfare website</h1>
             <h3 style="color: #3e8e41">Help them to catch their dreams</h3>
             <br>
-             <form  action="/StreetChild/login" method = "POST">
+             <form  action="/StreetChild/login" method = "GET">
                  <button type="submit"  name="start" class="btn btn-primary btn-lg">Find Out More</button>
              </form>
         </div>
-    
+    </div>
 
 </body>
 

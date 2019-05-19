@@ -19,7 +19,7 @@
     </head>
     <body style="background-image: url(/StreetChild/resources/bootstrap/images/singup.png)">
         <div class="container" style="height: 100px;">    
-            <a href="/StreetChild/start"><button type="button" class="btn btn-primary">Home</button></a>
+            <a href="/StreetChild/login"><button type="button" class="btn btn-primary">Home</button></a>
         </div>
         <div class="container" style="background-color: #3e8f3e;height: 100px;">
             <h1>Account successfully created</h1> 

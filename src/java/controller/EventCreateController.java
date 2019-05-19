@@ -20,7 +20,7 @@ import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
-import javax.ejb.EJB;
+//import javax.ejb.EJB;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.*;  
 import org.springframework.beans.factory.xml.XmlBeanFactory;  
@@ -89,14 +89,43 @@ public class EventCreateController {
           return "ChildrenForm";
           
       }
-      @RequestMapping(value = "/childrenlist",params = "list", method = RequestMethod.POST)
+      @RequestMapping(value = "/childrenlist",params = "action3", method = RequestMethod.POST)
       public String childrenform(@ModelAttribute("SpringWeb")Children children,ModelMap model ){
           
           DataAccess db = new DataAccess();
           int i = db.insertChild(children.getName(), children.getAge());
           
           if (i==1){
-              return "admin";
+              
+               List<VolunteerInfo> v = new ArrayList<>();
+       
+          v = db.volunteerList();
+          model.addAttribute("volunteerlist",v);
+         
+         for (VolunteerInfo item:v){
+              System.out.println(item.getName());
+              //model.addAttribute("name",item.)
+              System.out.println(item.getAddress());
+              System.out.println(item.getContactNo());
+              System.out.println(item.getOccupation());
+              System.out.println(item.getInstitution());
+              System.out.println(item.getEmail());
+          }
+         
+    List<Children> child = new ArrayList<>();
+       
+         child = db.GetChildrenList();
+          model.addAttribute("childlist",child);
+         int c=0;
+         for (Children item:child){
+              System.out.println(item.getName());
+              System.out.println(item.getAge());
+              System.out.println(item.getParentName());
+              //model.addAttribute("name",item.)
+             c++;
+          }
+            System.out.println(c+" childcount.......................................");     
+              return "orgInfo";
           }
           else {
               return "ChildForm";
@@ -106,7 +135,7 @@ public class EventCreateController {
       }
       
       
-        @RequestMapping(value = "/ChildrenList",params = "action3" , method = RequestMethod.POST)
+       /* @RequestMapping(value = "/ChildrenList",params = "action3" , method = RequestMethod.POST)
       public String List(@ModelAttribute("list")Children children, ModelMap model) {
         DataAccess db = new DataAccess();
           
@@ -126,22 +155,90 @@ public class EventCreateController {
     
       //return "childrenlist";
       return "childrenlist";
-   }
+   }*/
       
       
        @RequestMapping(value = "/ChildrenListWithParent",params = "action1", method = RequestMethod.POST)
-       public  String ParentNameInsert(@ModelAttribute("SpringWeb")ChildrenWithParents childrenWithParents,ModelMap model){
+       public  String ParentNameInsert(@ModelAttribute("SpringWeb")ChildrenWithParents childrenWithParents, ModelMap model){
          DataAccess db = new DataAccess();
+         System.out.println(childrenWithParents.getChildName());
          int i = db.insertChildwithParents(childrenWithParents.getChildName(),childrenWithParents.getAge(),childrenWithParents.getParentName(),childrenWithParents.getAddress(),
            childrenWithParents.getContactNO(), childrenWithParents.getOccupation(), childrenWithParents.getInstitution());
           if (i==1){
-              
-              return "admin";
+          List<VolunteerInfo> v = new ArrayList<>();
+       
+          v = db.volunteerList();
+          model.addAttribute("volunteerlist",v);
+         
+         for (VolunteerInfo item:v){
+              System.out.println(item.getName());
+              //model.addAttribute("name",item.)
+              System.out.println(item.getAddress());
+              System.out.println(item.getContactNo());
+              System.out.println(item.getOccupation());
+              System.out.println(item.getInstitution());
+              System.out.println(item.getEmail());
           }
+         
+    List<Children> child = new ArrayList<>();
+       
+         child = db.GetChildrenList();
+          model.addAttribute("childlist",child);
+         int c=0;
+         for (Children item:child){
+              System.out.println(item.getName());
+              System.out.println(item.getAge());
+              System.out.println(item.getParentName());
+              //model.addAttribute("name",item.)
+             c++;
+          }
+            System.out.println(c+" childcount.......................................");
+         
+              
+              return "orgInfo";
+          }  
           
-          
-          return "childrenlist";   
+          return "admin";   
        }
+       
+       
+       @RequestMapping(value = "/OrganizationInfo",params = "action2" , method = RequestMethod.POST)
+      public String childandvolunteer(@ModelAttribute("SpringWeb1")Children children,@ModelAttribute("SpringWeb2")VolunteerInfo volunteerInfo,ModelMap model) {
+          DataAccess db = new DataAccess();
+           List<VolunteerInfo> v = new ArrayList<>();
+       
+          v = db.volunteerList();
+          model.addAttribute("volunteerlist",v);
+         
+         for (VolunteerInfo item:v){
+              System.out.println(item.getName());
+              //model.addAttribute("name",item.)
+              System.out.println(item.getAddress());
+              System.out.println(item.getContactNo());
+              System.out.println(item.getOccupation());
+              System.out.println(item.getInstitution());
+              System.out.println(item.getEmail());
+          }
+         
+    List<Children> child = new ArrayList<>();
+       
+         child = db.GetChildrenList();
+          model.addAttribute("childlist",child);
+         int c=0;
+         for (Children item:child){
+              System.out.println(item.getName());
+              System.out.println(item.getAge());
+              System.out.println(item.getParentName());
+              //model.addAttribute("name",item.)
+             c++;
+          }
+            System.out.println(c+" childcount.......................................");
+         
+      return "orgInfo";
+   }
+      
+      
+      
        
 }
       

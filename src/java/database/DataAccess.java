@@ -6,7 +6,7 @@
 package database;
 
 import com.sun.javafx.scene.control.skin.VirtualFlow;
-import com.sun.xml.ws.commons.ha.HaContext;
+//import com.sun.xml.ws.commons.ha.HaContext;
 import controller.VolunteerAccountController;
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,20 +25,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.*;
 import java.io.*;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 import javafx.scene.layout.VBox;
-import javax.xml.registry.infomodel.Organization;
-import javax.xml.registry.infomodel.User;
+//import javax.xml.registry.infomodel.Organization;
+//import javax.xml.registry.infomodel.User;
 import model.Children;
+import model.Profile;
 import model.Review;
 import model.VolunteerInfo;
 import model.logInPageCursor;
 import model.userInfo;
-import org.hibernate.validator.internal.util.logging.Log;
+import org.apache.commons.codec.binary.Base64;
+//import org.hibernate.validator.internal.util.logging.Log;
 import org.springframework.beans.factory.support.ChildBeanDefinition;
-import sun.security.rsa.RSACore;
+
 
 
 /**
@@ -47,21 +51,23 @@ import sun.security.rsa.RSACore;
  */
 public class DataAccess {
 
-    private  String url="jdbc:mysql://localhost:3306/street_children_database?user=root";
+    private  String url="jdbc:mysql://localhost:3306/street_children_welfare?user=root";
+    private String unicode= "?useUnicode=yes&characterEncoding=UTF-8";
     private  String password="alvi";
     private  String username="root";
     Connection connection= null;
     private static int Organization_ID;
     private static int post_ID;
-    
-    
+    private static String Password;
+    private Map<Integer,List<String>>commentget = new HashMap<Integer,List<String>>();
+    private List<String>name = new ArrayList<>();
     public DataAccess() {
         try 
         {
             
             Class.forName("com.mysql.jdbc.Driver");
             //String url = "jdbc:mysql://localhost:3306/street_children_database?user=root";
-            connection = DriverManager.getConnection(url,username,password);
+            connection = DriverManager.getConnection(url+unicode,username,password);
           
             if (connection!=null)System.out.println("connection successfully established");
             else {System.out.println("mara ......");}
@@ -86,6 +92,7 @@ public class DataAccess {
                 {
                     int i= rs.getInt(3);
                     Organization_ID = rs.getInt(4);
+                    Password = rs.getString(2);
                     System.out.println(Organization_ID);
                     System.out.println("creted.....");
                     return i;
@@ -103,11 +110,11 @@ public class DataAccess {
      
      
      //volunteer info insert....
-     public int VolunteerAccount(String Name,String Password, String Address,String ContactNo, String Occupation,String Institution,String Email, String Organization)
+     public int VolunteerAccount(String Name,String Password, String Address,String ContactNo, String Occupation,String Institution,String Email, String Organization,InputStream inputStream)
     {
         try
         {
-            String insertCommand = "insert into volunteers (volunteer_name,volunteer_password,volunteer_address,volunteer_contactno,volunteer_occupation,volunteer_institution,volunteer_email,organization_name)values(?,?,?,?,?,?,?,?)";
+            String insertCommand = "insert into volunteers (volunteer_name,volunteer_password,volunteer_address,volunteer_contactno,volunteer_occupation,volunteer_institution,volunteer_email,organization_name,volunteer_photo)values(?,?,?,?,?,?,?,?,?)";
             String insertCommand1 = "insert into users (user_name,password,flag,organization_id) values(?,?,?,?)";
             PreparedStatement stmt =  connection.prepareStatement(insertCommand);
             PreparedStatement stmt1 = connection.prepareStatement(insertCommand1);
@@ -119,6 +126,7 @@ public class DataAccess {
             stmt.setString(6, Institution);
             stmt.setString(7, Email);
             stmt.setString(8, Organization);
+            stmt.setBinaryStream(9,inputStream);
             
            /* stmt1.setString(1, Name);
             stmt1.setString(2, Password);
@@ -209,7 +217,7 @@ public class DataAccess {
             
              //System.out.println(CustomerName+"id"+CustomerID);
              int i = stmt.executeUpdate();
-             
+             System.out.println("the value of i is......"+i);
             // int j = stmt1.executeUpdate();
             if(i==1)
             {
@@ -282,14 +290,44 @@ public class DataAccess {
        return pid;
              
    }
+   
+//   public  static String base64Encode(String token) {
+//    byte[] encodedBytes = Base64.encode(token.getBytes());
+//    return new String(encodedBytes, Charset.forName("UTF-8"));
+//}
+//
+//
+//public String base64Decode(String token) {
+//    byte[] decodedBytes = Base64.decode(token.getBytes());
+//    return new String(decodedBytes, Charset.forName("UTF-8"));
+//}
      
      
    public int postinsert(String givepost){
+       //String converted = Base64.encodeToString(toConvert.toString().getBytes(), Base64.DEFAULT);
+       
        try {
+           String encode = URLEncoder.encode(givepost,"UTF-8");
+           BufferedWriter output = null;
+        try {
+            File file = new File("F:\\example.txt");
+            output = new BufferedWriter(new FileWriter(file));
+            output.write(encode);
+        } catch ( IOException e ) {
+            e.printStackTrace();
+        } finally {
+          if ( output != null ) {
+            output.close();
+          }
+        }
+           
+           System.out.println("balll+..."+givepost);
            String insert = "insert into post (givepost,organization_id) values (?,?)";
            PreparedStatement stmt  = connection.prepareStatement(insert);
-           
+          // String encode = URLEncoder.encode(givepost,"UTF-8");
            stmt.setString(1, givepost);
+            //stmt.setString(1, encode);
+           
            stmt.setInt(2, Organization_ID);
            
            
@@ -303,7 +341,7 @@ public class DataAccess {
                     post_ID=p;
                 }
                        
-                System.out.println("creted");
+                //System.out.println("creted"+ encode);
                 return 1;
             }
             //System.out.println("mara kaici");
@@ -319,15 +357,15 @@ public class DataAccess {
    
  
    
-  public int imageinsert(String filename){
+  public int imageinsert(InputStream inputStream){
        try {
            String insert = "insert into photo (givephoto,organization_id,post_id) values (?,?,?)";
            PreparedStatement stmt  = connection.prepareStatement(insert);
            
-            File file = new File(filename);
-            FileInputStream input = new FileInputStream(file);
-            
-             stmt.setBinaryStream(1,input);
+//           File file = new File(filename);
+//           FileInputStream input = new FileInputStream(file);
+//            
+             stmt.setBinaryStream(1,inputStream);
              stmt.setInt(2, Organization_ID);
              stmt.setInt(3, post_ID);
            //stmt.setBlob(1, giveimage);
@@ -418,7 +456,9 @@ public class DataAccess {
     public Map<Integer,String> postget(){
         
         List<String>post = new ArrayList<String>();
+        List<String>com = new ArrayList<String>();
         Map<Integer,String>postMap = new HashMap<Integer,String>();
+     
         try {
             String sqlString = "select postid,givepost,postdate from post where organization_id = ?";
              PreparedStatement stmt = connection.prepareStatement(sqlString);
@@ -428,10 +468,14 @@ public class DataAccess {
                    
                    //post.add(rs.getString("givepost"));
                    postMap.put(rs.getInt("postid"),rs.getString("givepost")+ "     "+rs.getString("postdate"));
-                   
+                   com=comment(rs.getInt("postid"));
+                   commentget.put(rs.getInt("postid"), com);
                    System.out.println("post is inserted into the list.....");
                 
             }
+        
+            
+            
             System.out.println("mara khai nai.....");
             //return post;
            
@@ -516,6 +560,40 @@ public class DataAccess {
         return  v;
     }
     
+    public List<Profile>volunteerProfile()
+    {
+         List<Profile>profile = new ArrayList<Profile>();
+         Blob image = null;
+         byte [] imgData = null;
+        
+        try{
+         String sqlString = " select volunteer_name, volunteer_address,volunteer_contactno,volunteer_occupation,volunteer_institution,volunteer_email,volunteer_photo from volunteers where volunteer_password = ?";
+         PreparedStatement stmt = connection.prepareStatement(sqlString);
+         stmt.setString(1,Password);
+         ResultSet rs = stmt.executeQuery();
+         
+         if (rs.next()){
+                 String name = rs.getString("volunteer_name");
+                String Address = rs.getString("volunteer_address");
+                String Contact = rs.getString("volunteer_contactno");
+                String occupation = rs.getString("volunteer_occupation");
+                String institution = rs.getString("volunteer_institution");
+                String email = rs.getString("volunteer_email");
+                image = rs.getBlob("volunteer_photo");
+                 byte[] b= new byte[(int)image.length()];
+                 b = image.getBytes(1,(int)image.length());
+                 System.out.println("size :"+b.length);
+                String s = new String(org.apache.commons.codec.binary.Base64.encodeBase64(b));
+                Profile p = new Profile (name,Address,Contact,occupation,institution,email,s);
+                profile.add(p);
+         }
+         
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return profile;
+    }
+    
     public int insertChild(String name,String age){
         try {
             String sqlString = "insert into children (children_name,children_age,organization_id) values(?,?,?)";
@@ -565,7 +643,7 @@ public class DataAccess {
              stmt1.setString(2,childname);
             int i = stmt.executeUpdate();
             int j= stmt1.executeUpdate();
-            
+            System.out.println("i, j" +i+" "+j );
             if (i==1&&j==1){
                 System.out.println("kam hoice mama...");
                 return 1;
@@ -638,38 +716,75 @@ public class DataAccess {
            
      }
      
+     public List<Integer> UserViewRand(){
+         List<Integer> l = new ArrayList<>();
+         try{
+               int m = maxid();
+               for (int i=1;i<=m;i++)
+               {
+                  String s1 = "select postid from post where organization_id=? order by rand() limit 1";
+                    String s2 = "select organization_name from admin where organization_id=?";
+                  PreparedStatement stmt1 = connection.prepareStatement(s1);
+                   PreparedStatement stmt2 = connection.prepareStatement(s2);
+                  stmt1.setInt(1, i);   
+                  stmt2.setInt(1, i);
+                  ResultSet rs1= stmt1.executeQuery();
+                  ResultSet rs2= stmt2.executeQuery();
+                  if (rs1.next() && rs2.next())
+                  {
+                     name.add(rs2.getString("organization_name"));
+                     l.add(rs1.getInt("postid"));
+                  }
+               }
+         
+              
+             
+         }catch(Exception e)
+         {
+             e.printStackTrace();
+         }
+         
+         return l;
+     }
+     
     public List<logInPageCursor>UserView(){
        
         List<logInPageCursor>cursor = new ArrayList<logInPageCursor>();
+          List<Integer> l = new ArrayList<>();
          try {
-             int m = maxid();
-            for (int i=1; i<=m;i++)
+            // int m = maxid();
+            l=UserViewRand();
+            System.out.println("mayere baap   "+l.size());
+            for (int i=0; i<l.size();i++)
             {
-                String s1 = "select  givepost from post where organization_id=? order by rand() limit 1 ";
-                String s2 = "select  givephoto from photo where organization_id=? order by rand() limit 1 ";
-                String s3 = "select organization_name from admin where organization_id=?";
+                int g = l.get(i);
+//                String nam = name.get(i);
+ System.out.println("mayere baap2   "+g);
+                String s1 = "select givepost from post where postid=?";
+                String s2 = "select givephoto from photo where post_id=? order by rand() limit 1 ";
+                //String s3 = "select organization_id from post where postid=?";
                 PreparedStatement stmt1 = connection.prepareStatement(s1);
                 PreparedStatement stmt2 = connection.prepareStatement(s2);
-                PreparedStatement stmt3 = connection.prepareStatement(s3);
+                //PreparedStatement stmt3 = connection.prepareStatement(s3);
                 
-                stmt1.setInt(1,i);
-                stmt2.setInt(1,i);
-                stmt3.setInt(1,i);
+                stmt1.setInt(1,g);
+                stmt2.setInt(1,g);
+                //stmt3.setInt(1,g);
                 
                 ResultSet rs1= stmt1.executeQuery();
                 ResultSet rs2 = stmt2.executeQuery();
-                ResultSet rs3 = stmt3.executeQuery();
-                if (rs1.next() && rs2.next() && rs3.next())
+               // ResultSet rs3 = stmt3.executeQuery();
+                if (rs1.next() && rs2.next())
                 {
                     String post = rs1.getString("givepost");
                     Blob blob = rs2.getBlob("givephoto");
-                    String name = rs3.getString("organization_name");
+                    String nam = name.get(i);
                     
                       byte[] b= new byte[(int)blob.length()];
                       b = blob.getBytes(1,(int)blob.length());
                      String s = new String(org.apache.commons.codec.binary.Base64.encodeBase64(b));
-                    logInPageCursor log = new logInPageCursor(name,post,s);
-                    cursor.add(log);
+                     logInPageCursor log = new logInPageCursor(nam,post,s);
+                     cursor.add(log);
                     
                 }
                 
@@ -752,6 +867,7 @@ public class DataAccess {
    public List<userInfo>ReviewSeen()
    {
        List<userInfo>reviews = new ArrayList<userInfo>();
+       List<String> l = new ArrayList<>();
        try {
            String sqlString = "select review_text,review_rate from review where organization_id=?";
            PreparedStatement stmt = connection.prepareCall(sqlString);
@@ -762,12 +878,141 @@ public class DataAccess {
             while(rs.next()){
                userInfo review = new userInfo(rs.getString("review_text"),rs.getString("review_rate"));
                reviews.add(review);
+               l.add(rs.getString("review_text"));
            }
        } catch (Exception e) {
            e.printStackTrace();
        }
        return reviews;
+      // return l;
    }
+   
+   public List<String>ReviewSeen1()
+   {
+       //List<userInfo>reviews = new ArrayList<userInfo>();
+       List<String> l = new ArrayList<>();
+       try {
+           String sqlString = "select review_text,review_rate from review where organization_id=?";
+           PreparedStatement stmt = connection.prepareCall(sqlString);
+           stmt.setInt(1, Organization_ID);
+           ResultSet rs = stmt.executeQuery();
+           
+            
+            while(rs.next()){
+             
+               l.add(rs.getString("review_text"));
+           }
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+       return l;
+      // return l;
+   }
+   
+   
+   public List<String>comment(int postid)
+   {
+       Map<Integer,List<String>>commentget = new HashMap<Integer,List<String>>();
+       List<String>com = new ArrayList<String>();
+       try{
+           String sqlString = "select givecomment from comment where post_id=?";
+           PreparedStatement stmt = connection.prepareCall(sqlString);
+           stmt.setInt(1,postid);
+           ResultSet rs = stmt.executeQuery();
+           
+           while(rs.next())
+           {
+               com.add(rs.getString("givecomment"));
+                  
+           }
+           
+           
+       }catch(Exception e){
+           e.printStackTrace();
+       }
+       
+       return com;
+   }
+   
+   public Map<Integer,List<String>> commentret()
+   {
+       return commentget;
+   }
+   
+   public int insertcomment(int orgid, int postid, String comment)
+   {
+       int i=-1;
+       try
+       {
+           String sqlString = "insert into comment (organization_id,post_id,givecomment) values (?,?,?)";
+           PreparedStatement stmt = connection.prepareStatement(sqlString);
+           stmt.setInt(1, orgid);
+           stmt.setInt(2, postid);
+           stmt.setString(3, comment);
+           
+          i = stmt.executeUpdate();
+          
+          if (i==1)
+          {
+              System.out.println("Successful");
+          }
+       }catch (Exception e)
+       {
+           e.printStackTrace();
+       }
+       return i;
+       
+   }
+   public int insertcommentAdmin(int postid, String comment)
+   {
+       String comment1= "Admin: "+comment;
+       int i=-1;
+       try
+       {
+           String sqlString = "insert into comment (organization_id,post_id,givecomment) values (?,?,?)";
+           PreparedStatement stmt = connection.prepareStatement(sqlString);
+           stmt.setInt(1, Organization_ID);
+           stmt.setInt(2, postid);
+           stmt.setString(3, comment1);
+           
+          i = stmt.executeUpdate();
+          
+          if (i==1)
+          {
+              System.out.println("Successful");
+          }
+       }catch (Exception e)
+       {
+           e.printStackTrace();
+       }
+       return i;
+       
+   }
+   
+   public String getOrganizationInfo(String orgname)
+   {
+       String string="";
+       try{
+           
+           String sql = "select organization_info from admin where organization_name=?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, sql);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next())
+            {
+                string = rs.getString("organization_info");
+            }
+           
+       }catch(Exception ex)
+       {
+           ex.printStackTrace();
+       }
+       return string;
+   }
+   
+   
+   
 }
     
    

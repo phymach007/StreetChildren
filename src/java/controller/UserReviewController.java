@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import model.Review;
+import model.UserReview;
 import model.userInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,7 +33,7 @@ public class UserReviewController {
             model.addAttribute("saal", "Alvi");
           int r = Integer.parseInt(rate);
           DataAccess db = new DataAccess();
-          int i =db.InsertReview(rev, r);
+          int i =db.InsertReview(rev,r);
           
           if (i==1)
           {
@@ -48,7 +49,7 @@ public class UserReviewController {
               
               model.addAttribute("reviews", reviews1);
            
-               return "start";
+               return "userreview";
           }
           
          
@@ -59,4 +60,6 @@ public class UserReviewController {
     
      
     }
+      
+      
 }

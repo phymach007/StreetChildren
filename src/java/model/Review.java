@@ -10,6 +10,22 @@ package model;
  * @author Lenovo
  */
 public class Review {
-    
+
+    public int getPostid() {
+        return postid;
+    }
+
+    public void setPostid(int postid) {
+        this.postid = postid;
+    }
+    public String comment;
+    public int postid;
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
        
 }

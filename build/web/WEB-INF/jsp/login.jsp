@@ -1,18 +1,35 @@
 <%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
 <%@taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="ISO-8859-1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Street Child</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <link rel="stylesheet" type="text/css" href="/StreetChild/resources/bootstrap/css/megamenu.css" media="screen" />	
+    <link rel="stylesheet" href="/StreetChild/resources/bootstrap/js/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="/StreetChild/resources/bootstrap/css/bootstrap-theme.css">
+    
+		<!-- skin -->
+    <link rel="stylesheet" href="/StreetChild/resources/bootstrap/skin/default.css">
+      
     <link type="text/css" rel="stylesheet" href="/StreetChild/resources/bootstrap/css/normalize.css" />
     <link href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css" />
     <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
-    <link href="/StreetChild/resources//bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/StreetChild/resources/bootstrap/css/screen.css" />
-    <script src="/StreetChild/resources/bootstrap/js/bootstrap.js"></script>
+   
+    <script src="/StreetChild/resources/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     
 <style>
      
@@ -21,174 +38,108 @@
       width: 80%;  
       margin: auto;  
 }  
+
+
+   
+   .btn-dark:hover, .btn-dark:focus, .btn-dark:active, .btn-dark.active, .open>.dropdown-toggle.btn-dark {
+    color: #285e8e;
+    background-color: #0f0f0f;
+    border-color: #ddd
+ /*set the color you want here*/
+}
+
+
+.btn-block:hover, .btn-block:focus, .btn-block:active, .btn-block.active, .open>.dropdown-toggle.btn-block {
+    color: #fff;
+    background-color: #122b40;
+    border-color: #F2EFE9; /*set the color you want here*/
+}
+
+
  
-body {
-    background-image: url(/StreetChild/resources/bootstrap/images/bg3.jpg);
-}
-
-h1 {
-    color: white;
-    text-align: center;
-}
-
-p {
-    font-family: serif;
-    font-size: 20px;
-  }
-  a {
-     text-decoration:none;
-      color: white;
-   }
-   .btn-navbar:hover, .btn-navbar:focus, .btn-navbar:active, .btn-navbar.active, .open>.dropdown-toggle.btn-navbar {
-    color: #122b40;
-    background-color: #444;
-     /*set the color you want here*/
-}
-.styled-select {
-   background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
-   height: 29px;
-   overflow: hidden;
-   width: 240px;
-}
-
-.styled-select select {
-   background: transparent;
-   border: none;
-   font-size: 14px;
-   height: 29px;
-   padding: 5px; /* If you add too much padding here, the options won't show in IE */
-   width: 268px;
-}
-
-.styled-select.slate {
-   background: url(http://i62.tinypic.com/2e3ybe1.jpg) no-repeat right center;
-   height: 34px;
-   width: 240px;
-}
-
-.styled-select.slate select {
-   border: 1px solid #ccc;
-   font-size: 16px;
-   height: 34px;
-   width: 268px;
-}
- .dropbtn {
-    background-color: brown;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    width: 160px;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropdown:hover .dropbtn {
-    background-color: #3e8e41;
-} 
 </style>
 </head>
 <body >
-    
- <div class="navbar navbar-default navbar-inverse">
-                <div class="navbar-header"><a class="navbar-brand" href="#"><strong>Street Children Welfare</strong></a>
-     
-                </div>
-    <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right ">
-        <li class="active"><a href="#"><p>Home</p></a></li>
-        <li>
-            <form  method = "POST" action="/StreetChild/orgCreate" >
-                <button type="submit" class="btn btn-navbar" name="action4" style="opacity: .8;filter: alpha(opacity=50);"><p style="color: #000">Create Organization</p></button>
-            </form> 
-        </li>
-        <li>
-            <form  action="/StreetChild/orgCreate" method = "POST">
-                <button type="submit" class="btn btn-navbar" name="action4" style="opacity: .8;filter: alpha(opacity=50);"><p style="color: #000">Donate</p></button>
-            </form>
-        </li>
-        <li>
-            <form  action="/StreetChild/" method = "POST">
-                <button type="submit" class="btn btn-navbar" name="action4" style="opacity: .8;filter: alpha(opacity=50);"><p style="color: #000">About us</p></button>
-            </form>
-        </li>      </ul>
-    </div>
- </div>
 
- 
-         
-    <div class="container">
-    <div class="row">
-    <div class="col-lg-3 col-sm-3 col-md-3" style="position: relative;top: -20px;">
-          <form  action="/StreetChild/checkUserInfo" method = "POST">
-              <table>
-               <tr><input type="text" placeholder="username" name = "username" /></tr>
-              <tr><input type="password" placeholder="password" name="password"/></tr>
-              <tr>
-                  <td><button type = "submit" class="btn btn-primary btn-sm"  name = "action2" >Login</button></td>
-                   <td><button type = "submit" class="btn btn-danger btn-sm" name = "action1" >sign up</button></td>
-              </tr>
-              </table>
-          </form>
+                
+<nav class="navbar navbar-inverse navbar-fixed-top w3_megamenu" role="navigation">
+    <div class="navbar-header">
+        <button type="button" data-toggle="collapse" data-target="#defaultmenu" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="#" class="navbar-brand"><i class="fa fa-home"></i></a>
+    </div><!-- end navbar-header -->
         
-        
-        <div>
-        <div class="dropdown" style="" > 
-            
-          <button class="dropbtn glyphicon glyphicon-align-left glyphicon-collapse-down" >View Organization activity </button>
-          
-                 
-   <div class="dropdown-content" >
-           <c:forEach items="${OrgName}" var = "OrgName"> 
-               
+            <div id="defaultmenu" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#section_home">Bondhon</a></li>
+                    <li><a  href="#section-createOrg">Create Organization</a></li>
+                        <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Organization List <b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu">
+                            
+                <c:forEach items="${OrgName}" var = "OrgName"> 
+                    <li>
+                        <form action="/StreetChild/userview" method="POST" >
+                      
+                            <button class="btn btn-block"  type="submit" name="mybutton" value="${OrgName}">${OrgName}</button>
+                </form>
+                        
+                        
+                    </li>
                       <%-- 
                   <button type="submit" name="OrganizationName" class="btn btn-primary btn-lg">${OrganizationName}</button>
                       --%>
-     <form action="/StreetChild/userview" method="POST" >
-                      
-         <button class="btn btn-navbar" type="submit" name="mybutton" value="${OrgName}">${OrgName}</button>
-              </form>  
+                
+                </c:forEach>
+                            
+
+                        
+                         <!-- end dropdown-submenu -->
+                    </ul><!-- end dropdown-menu -->
+		</li>
+            </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    
+                     
+                    <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Login<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li class="form-group" style="padding-left:10px">
+                                <form class="form" role="form" action="/StreetChild/checkUserInfo" method = "POST" accept-charset="UTF-8" id="login-nav">
+						<div>
+                                                     
+							<input type="text" class="form-control"  placeholder="username" name="username" />
+                                                        <input type="password" class="form-control" placeholder="Password" name="password"  />
+                                                        <a style="color: #BD3518" href="#">Forget the password ?</a>
+						</div>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" style="color: #5e5e5e"> keep me logged-in
+		  				    </label>
+						</div>
+						<div>
+                                                    <button type = "submit" class="btn btn-block"  name = "action2" >Login</button>
+						</div>
+                                </form>
+                                       <form class="form" role="form" action="/StreetChild/createaccount" method = "POST" accept-charset="UTF-8" id="login-nav">
+                                                <div>
+						Want to be a volunteer? <button type = "submit" class="btn btn-danger btn-sm" name = "action1" >join us</button></td>
+					</div>
+
+                                                
+						
+                                            </form>
+                            </li>
+                        </ul>
+                    </li>
+                    
+        	</ul>
+                                        
+            </div>
+</nav>
+                <section class="section appear clearfix" id="section_home">
+ <div class="container-fluid" style="background-color: #F2EFE9">
+    <div class="row mar-bot40">
  
-             
-              </c:forEach>
-                       </div>
-            
-    </div>
-</div>
+ <div class="container" >
    
-  </div>
-     
-   
- 
- <div class="col-lg-9 col-sm-9 col-md-9">
-   
-     <div id="myCarousel" class="carousel slide" data-ride="carousel" style="position: relative;top: -20px;">  
+     <div id="myCarousel" class="carousel slide" data-ride="carousel">  
     <!-- Indicators -->  
     <ol class="carousel-indicators">  
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>  
@@ -203,17 +154,19 @@ p {
         <h3>Santa-Banta</h3>  
         <p>Read Santa-Banta jokes at javaTpoint.</p>  
 </div>  --%>
-        
+       
         <c:set var = "i" scope = "session" value = "${0}"/>
         <c:forEach items="${cursor}" var="items">
-           
+         <%--<c:forEach items="${list}" var="items">--%>  
             <c:choose>
                 <c:when test="${i%4==0}" >
                     <c:set var ="i" value="${i+1}"/>
-                     <div class="item active">
-                         <h2 class="text-center" style="position: relative;top: -20px; background-color: #122b40;color: #ccc; height:40px;"><c:out value="${items. getOrganizationName()}"/></h2>
-                         <p style="color: #DAF3F8"> <c:out value="${items.getPost()}"/></p>  
-       <img class="rounded-circle" style="width: 70%;height: 70%; border: 10px;padding-left: 40px; padding-bottom: 20px"  src="data:image/jpg;base64,${items.getBlob()}" />
+                    <div class="item active" style="">
+                        
+                         <img class="rounded-circle" style="height: 350px; width: 550px; "  src="data:image/jpg;base64,${items.getBlob()}" />
+                         <p class="text-center" style="color: #496054;position: relative;">${items.getPost()}</p>
+                      <h2 class="text-center" style="color: ">${items.getOrganizationName()}</h2>                     
+       
                      </div>
                 </c:when>
        
@@ -221,9 +174,9 @@ p {
        <c:otherwise>
             <c:set var ="i" value="${i+1}"/>
             <div class="item">
-       <h2 class="text-center" style="position: relative;top: -20px;background-color: #122b40;color: #ccc; height:40px;"><c:out value="${items. getOrganizationName()}"/></h2>
-       <p style="color: #DAF3F8"> <c:out value="${items.getPost()}"/></p>  
-       <img class="rounded-circle" style="width: 70%;height: 70%; border: 10px;padding-left: 40px; padding-bottom: 20px"  src="data:image/jpg;base64,${items.getBlob()}" />
+       <img class="rounded-circle" style="height: 350px; width: 550px; "  src="data:image/jpg;base64,${items.getBlob()}" />
+                         <h2 class="text-center" style="color: #496054;position: relative;">${items.getPost()}</h2>
+                         <p class="text-center" style="color: "> ${items.getOrganizationName()}</p> 
             </div>     
        </c:otherwise>
             </c:choose>
@@ -255,14 +208,96 @@ p {
 </div><!-- corousel end -->  
  </div>
 </div>
+ </div>
+</section>
+  
+  <section id="section-createOrg" class="section appear clearfix" style="background-color: #496054">
+        <div class="text-center">
+							<i class="fa fa-flask fa-5x mar-bot20"></i>
+							<h2 class="slogan">Build Your Organization Website</h2>
+							<p>
+							 
+							</p>	
+	</div>
+        
+        
+      <form class="form" action="/StreetChild/checkOrgInfo" method="POST">
+    <div class="container" style="position:relative;">
+        <div class="row-fluid form-group">
+            <div class="col-sm-5 col-lg-5">
+        
+                <h2 class="text-center" style="color: #c4e3f3"><strong>Admin Information</strong></h2>
+           
+               
+                <p style="color: white">Full Name  </p><input class="form-control" type="text" name="Name" /> <br>
+                <p style="color: white">username  </p><input class="form-control" type="text" name="uName" /> <br>
+                <p style="color:white">Email       :</p><input class="form-control" placeholder="eg.example@gmail.com" type="email" name="Email" /><br>
+                <p style="color:white">Password    :</p><input class="form-control" placeholder="at least 8 characters" type="password" name="Password" /><br>
+                <p style="color:white">Confirm password</p><input class="form-control" placeholder="re-type password" type="password" name="confirmpassword" /><br>
+                <p style="color:white">Contact No.</p><input class="form-control" placeholder="eg. 01xxxxxx" type="text" name="ContactNo" /> <br>
+                <p style="color:white">Occupation</p><input class="form-control" type="text" name="Occupation" /> <br>
+                <p style="color:white">Institution</p><input class="form-control" type="text" name="Institution" /> <br>
+                
+                <p style="color:white">Upload your profile photo</p>
+                <input class="form-control" type="file" name="pp" size="20"/>
+             
+            
+                        <%--<a href="/StreetChild/login"><div class="btn" style="position: relative;left: 150px;top: 50px;height: 20px;width: 70px">Create</div>
+                            </a>--%>
+  
+            </div> 
+       <div class="col-sm-7 col-lg-7">
+          
+           <h2 class="text-center" style="color: #c4e3f3"><strong>Organizaion Information</strong></h2>
+           
+               
+              <p style="color: white">Organization Name       :</p><input class="form-control" type="text" name="orgName" /> <br>
+                <p style="color:white">About Organization</p><textarea class="form-control" name="info" placeholder="long description about organization" rows="14" ></textarea> <br>
+                <p style="color:white">Location</p><input class="form-control" type="text" name="orglocation" /> <br>
+                <p style="color:white">Organization Contact No</><input class="form-control" placeholder="eg. 01xxxxxx" type="text" name="orgcontact" /> <br>
+                
+                 <p style="color:white">Upload Organization cover photo :</p>
+                <input class="form-control" type="file" name="pp" size="20"/>
+                             
+            
+                        <%--<a href="/StreetChild/login"><div class="btn" style="position: relative;left: 150px;top: 50px;height: 20px;width: 70px">Create</div>
+                            </a>--%>
+
+            
+            
+       
+          
+         </div>
+      </div>
+          
+                            
+                        
+           <div>
+          
+               
+               <span>
+                   <input  type="checkbox"><b style="color: white">I Agree with <a  style="color: red"href="#"><u>terms & conditions</u></a></b><br>
+
+               </span>     
+               <button style="position:relative;top:13px"  type="submit" class="btn btn-block btn-lg" style="background-color:" name="action1"><strong style="color:#4A89AA">Submit</strong></button>
+           </div>
     </div>
+           </form>
+ 
+        
+    </section>
       
       
-    
+  <section id="section-about" class="section appear clearfix">  
 <div class="container">
-  <div class="row">
-    <div class="col-md-12">  <h2 style="color: black; margin-bottom:44px;" class="text-center">Developers</h2></div>
-  </div>
+  				<div class="row mar-bot40">
+					<div class="col-md-offset-3 col-md-6">
+						<div class="section-header">
+							<h2 class=" text-center" data-animation="bounceInUp">Our Team</h2>
+                                                        <p></p>
+						</div>
+					</div>
+				</div>
     <div class="row">
 <div class="col-md-6 text-center">
   <img src="/StreetChild/resources/bootstrap/images/raihan.jpg" class="img-circle" width="100" height="100">
@@ -277,8 +312,51 @@ p {
   </div>
   </div>
 </div>
+  </section>
+  
+  <a href="#header" class="scrollup"><i class="fa fa-chevron-up"></i></a>	
+
+	<script src="/StreetChild/resources/bootstrap/js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+	<script src="/StreetChild/resources/bootstrap/js/jquery.js"></script>
+	<script src="/StreetChild/resources/bootstrap/js/jquery.easing.1.3.js"></script>
+    <script src="/StreetChild/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script src="https://maps.google.com/maps/api/js?sensor=true"></script>
+	<script src="/StreetChild/resources/bootstrap/js/jquery.isotope.min.js"></script>
+	<script src="/StreetChild/resources/bootstrap/js/jquery.nicescroll.min.js"></script>
+	<script src="/StreetChild/resources/bootstrap/js/fancybox/jquery.fancybox.pack.js"></script>
+	<script src="/StreetChild/resources/bootstrap/js/skrollr.min.js"></script>		
+	<script src="/StreetChild/resources/bootstrap/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+	<script src="/StreetChild/resources/bootstrap/js/jquery.localscroll-1.2.7-min.js"></script>
+	<script src="/StreetChild/resources/bootstrap/js/stellar.js"></script>
+	<script src="/StreetChild/resources/bootstrap/js/jquery.appear.js"></script>
+    <script src="/StreetChild/resources/bootstrap/js/main.js"></script>
+    <script src="/StreetChild/resources/bootstrap/contactform/contactform.js"></script>
+  
+  
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>  
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> 
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  
+  
+  <script>
+      $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("active");
+    });
+    $(document).ready(function(){
+        $(".dropdown").hover(
+        function() {
+            $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true,true).slideDown("400");
+            $(this).toggleClass('open');        
+        },
+        function() {
+            $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true,true).slideUp("400");
+            $(this).toggleClass('open');       
+        }
+        );
+    });
+  </script>
+  
+  
 </body>
 </html>
 

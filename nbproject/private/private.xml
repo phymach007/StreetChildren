@@ -3,47 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/SE/StreetChild/src/java/controller/EventShowcasing.java</file>
-            <file>file:/F:/SE/StreetChild/web/WEB-INF/jsp/volunteer.jsp</file>
-            <file>file:/F:/SE/StreetChild/web/WEB-INF/jsp/userreview.jsp</file>
-            <file>file:/F:/SE/StreetChild/src/java/database/DataAccess.java</file>
-            <file>file:/F:/SE/StreetChild/web/WEB-INF/jsp/login.jsp</file>
-            <file>file:/F:/SE/StreetChild/web/WEB-INF/jsp/createAccount.jsp</file>
-            <file>file:/F:/SE/StreetChild/src/java/controller/createOrganization.java</file>
-            <file>file:/F:/SE/StreetChild/web/WEB-INF/jsp/volunteeraccountsuccessful.jsp</file>
-            <file>file:/F:/SE/StreetChild/src/java/Mail/MailSessionBean.java</file>
-            <file>file:/F:/SE/StreetChild/src/java/model/Review.java</file>
-            <file>file:/F:/SE/StreetChild/nbproject/build-impl.xml</file>
-            <file>file:/F:/SE/StreetChild/src/java/controller/loginController.java</file>
-            <file>file:/F:/SE/StreetChild/web/WEB-INF/applicationContext.xml</file>
-            <file>file:/F:/SE/StreetChild/web/WEB-INF/jsp/map.jsp</file>
-            <file>file:/F:/SE/StreetChild/web/WEB-INF/jsp/volunteerlist.jsp</file>
-            <file>file:/F:/SE/StreetChild/web/redirect.jsp</file>
-            <file>file:/F:/SE/StreetChild/src/java/model/Children.java</file>
-            <file>file:/F:/SE/StreetChild/web/WEB-INF/StreetChild-servlet.xml</file>
-            <file>file:/F:/SE/StreetChild/web/WEB-INF/jsp/ChildrenForm.jsp</file>
-            <file>file:/F:/SE/StreetChild/web/WEB-INF/jsp/start.jsp</file>
-            <file>file:/F:/SE/StreetChild/web/WEB-INF/jsp/newjsp.jsp</file>
-            <file>file:/F:/SE/StreetChild/web/WEB-INF/jsp/childrenlist.jsp</file>
-            <file>file:/F:/SE/StreetChild/web/WEB-INF/jsp/admin.jsp</file>
-            <file>file:/F:/SE/StreetChild/web/WEB-INF/jsp/postshow_1.jsp</file>
-            <file>file:/F:/SE/StreetChild/src/java/model/MailSend.java</file>
-            <file>file:/F:/SE/StreetChild/src/java/controller/UserReviewController.java</file>
-            <file>file:/F:/SE/StreetChild/src/java/controller/EventCreateController.java</file>
-            <file>file:/F:/SE/StreetChild/src/java/controller/MailMail.java</file>
-            <file>file:/F:/SE/StreetChild/src/java/model/userInfo.java</file>
-            <file>file:/F:/SE/StreetChild/src/java/model/logInPageCursor.java</file>
-            <file>file:/F:/SE/StreetChild/web/WEB-INF/jsp/userview.jsp</file>
-            <file>file:/F:/SE/StreetChild/src/java/model/AdminInfo.java</file>
-            <file>file:/F:/SE/StreetChild/src/java/model/ChildrenWithParents.java</file>
-            <file>file:/F:/SE/StreetChild/web/WEB-INF/jsp/createOrg.jsp</file>
-            <file>file:/F:/SE/StreetChild/src/java/controller/VolunteerAccountController.java</file>
-            <file>file:/F:/SE/StreetChild/web/WEB-INF/jsp/post.jsp</file>
-            <file>file:/F:/SE/StreetChild/web/WEB-INF/jsp/postshow.jsp</file>
-            <file>file:/F:/SE/StreetChild/web/WEB-INF/web.xml</file>
-            <file>file:/F:/SE/StreetChild/src/java/model/VolunteerInfo.java</file>
-            <file>file:/F:/SE/StreetChild/web/WEB-INF/jsp/welcome.jsp</file>
-            <file>file:/F:/SE/StreetChild/src/java/model/PostAndImage.java</file>
+            <file>file:/F:/StreetChild/src/java/Mail/MailSessionBean.java</file>
+            <file>file:/F:/StreetChild/web/WEB-INF/applicationContext.xml</file>
+            <file>file:/F:/StreetChild/src/java/controller/createOrganization.java</file>
+            <file>file:/F:/StreetChild/nbproject/build-impl.xml</file>
+            <file>file:/F:/StreetChild/src/java/database/DataAccess.java</file>
+            <file>file:/F:/StreetChild/web/WEB-INF/jsp/admin.jsp</file>
+            <file>file:/F:/StreetChild/nbproject/private/private.xml</file>
+            <file>file:/F:/StreetChild/src/java/controller/MailMail.java</file>
+            <file>file:/F:/StreetChild/web/WEB-INF/StreetChild-servlet.xml</file>
+            <file>file:/F:/StreetChild/web/WEB-INF/web.xml</file>
+            <file>file:/F:/StreetChild/web/WEB-INF/jsp/postshow.jsp</file>
+            <file>file:/F:/StreetChild/src/java/controller/loginController.java</file>
+            <file>file:/F:/StreetChild/src/java/controller/EventCreateController.java</file>
+            <file>file:/F:/StreetChild/src/java/controller/EventShowcasing.java</file>
         </group>
     </open-files>
 </project-private>

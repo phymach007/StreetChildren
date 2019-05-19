@@ -5,13 +5,13 @@
  */
 package Mail;
 
-import javax.ejb.Stateless;
+//import javax.ejb.Stateless;
 
 /**
  *
  * @author Lenovo
  */
-@Stateless
+//@Stateless
 public class MailSessionBean {
 
     // Add business logic below. (Right-click in editor and choose

@@ -5,7 +5,8 @@
 --%>
 <%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+pageEncoding="ISO-8859-1"%>
 <html lang="en">
 <head>
     <meta name = "viewport" content = "width = device-width, initial-scale = 1.0"/>
@@ -19,6 +20,9 @@
 <link href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css" />
 <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
 <link href="/StreetChild/resources//bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/StreetChild/resources/bootstrap/css/expand/style.css">
+<link rel="stylesheet" href="/StreetChild/resources/bootstrap/css/expand/font-awesome.">
+
     <link rel="stylesheet" type="text/css" href="/StreetChild/resources/bootstrap/css/screen.css" />
    <script src="/StreetChild/resources/bootstrap/js/bootstrap.min.js"></script>
    
@@ -43,7 +47,7 @@
 }
    .btn-navbar:hover, .btn-navbar:focus, .btn-navbar:active, .btn-navbar.active, .open>.dropdown-toggle.btn-navbar {
     color: #111;
-    background-color: #444;
+    background-color: #286090;
      /*set the color you want here*/
 }
 .thumbnail {
@@ -61,8 +65,8 @@
 </style>
 </head>
     <body>
-                <div class="container" style="">
-                <div class="navbar navbar-default navbar-inverse">
+                
+                <nav class="navbar  navbar-default navbar-fixed-top">
                     <div class="navbar-header"><a class="navbar-brand" href="#"><strong><c:out value="${orgname}" ></c:out></strong></a>
      
                 </div>
@@ -77,45 +81,116 @@
                         </li>        
                     </ul>
                     </div>
-                </div>
-                 <div class="row" >
-        
-         
-                     <div class="col-lg-9 thumbnail shadow-depth-4" style="background-color:  ">
-            <c:forEach items="${Final1}" var="final">
-         
-         <div  style="background-color: #fff ; margin: 20px;border:10px; border-color: #3c3c3c;">
-             
-             <br><div class="thumbnail shadow-depth-4">
-                 <h3>${final.key} </h3>
-             </div></br>
-                    <c:forEach items="${final.value}" var = "pic">
-                        <img class="rounded-circle" style="width: 300px;height: 350px; border: 10px;padding-left: 40px; padding-bottom: 20px"  src="data:image/jpg;base64,${pic}" />
-                    </c:forEach>
-
-             
-         </div>
-           </c:forEach> 
+                </nav>
+            
+          
+           
+      <div class="container" style="position:relative;top:50px">
+        <div class="row">
+           <div class="col-md-8" style="background-color: #F2EFE9 ; resize: horizontal;overflow: auto;">
+             <c:forEach items="${Final1}" var="final" varStatus = "i">
+                 <c:set var="commentget" value="${commentget}"/>
+                  <c:set var="id" value="${postid[i.index]}"/>
+<!--                 <p>this is the key : ${postid[i.index]}</p>-->
+                 
+                 
+              
+                 <div class="panel panel-default post" style="">
+              <div class="panel-body">
+                 <div class="row">
+                   <div class="col-sm-2">
+                     <a href="profile.html" class="post-avatar thumbnail"><img src="img/user.png" alt=""><div class="text-center">User</div></a>
+                   
+                   </div>
+                     <div class="col-sm-8">
+                         <div class="bubble" style="width:350px;">
+                       <div class="pointer">
+                         <p>${final.key}</p>
+                       </div>
+                       <div class="pointer-border"></div>
                      </div>
-                     <div class="col-lg-3"> 
-                         <h5>Your suggestions,comments or query:</h5>
+                       <div>
+                       <c:forEach items="${final.value}" var = "pic">
+                        <img style="width: 200px;height: 150px; border: 10px;padding-left: 40px; padding-bottom: 20px"  src="data:image/jpg;base64,${pic}" />
+                      </c:forEach>
+                           
+                       </div>
+                       <p class="post-actions"><a href="#">Like</a> - <a href="#">Share</a></p>
+                       
+                       
+                       <c:forEach items="${commentget[id]}" var="com">        
+                     <div class="bubble" style="width:350px;">
+                       <div class="pointer">
+                         <p>${com}</p>                       <%--// I have to work here........--%>
+                       </div>
+                       <div class="pointer-border"></div>
+                     </div>
+                       </c:forEach>
+                       
+                
+                            
+                      
+                       
+                       
+                     <div class="comment-form">
+                         <form class="form-inline" action="/StreetChild/userviewupdate" method="POST">     
+                        <div class="form-group">
+                          <input type="text" class="form-control" placeholder="enter comment" name="comment">
+                          <input type="hidden" name="postid" value="${i.index}"> 
+                        </div>
+                        <button type="submit" name ="comment" class="btn btn-default">Comment</button>
+                      </form>
+                     </div>
+                     <div class="clearfix"></div>
+
+                     <div class="comments">
+                       
+                       <div class="clearfix"></div>
+                     </div>
+                     </div>
+                 </div>
+              </div>
+             </div>   
+             
+          </c:forEach>
+                   </div>
+           
+                
+                
+            
+            <div class="col-md-4" style="">
+               
+                   <div class="affix">
+                 <h5>Your suggestions,comments or query:</h5>
                  <%-- new codes --%>
-                <form   method="POST" action="/StreetChild/Review">
-                  <textarea name="review" placeholder="Write here" rows="4" cols="38" style=" background-color: #0000; align-items: center"></textarea>
+                 <form  class="form-"  method="POST" action="/StreetChild/Review">
+                  <textarea class="form-control" name="review" placeholder="Write here" rows="4" cols="38" style=" background-color: #0000; align-items: center"></textarea>
                   <h3>Rate Our Organization:</h3>
-                  <input type="radio" name="rate" value="1">1<br>
+                  <input class="form-control" type="radio" name="rate" value="1">1<br>
                   <input type="radio" name="rate" value="2">2<br>
                   <input type="radio" name="rate" value="3">3<br>
                   <input type="radio" name="rate" value="4">4<br>
                   <input type="radio" name="rate" value="5">5<br>
                    
       <button type = "submit" class="btn btn-primary" name="reviewbutton" style="opacity: .8;filter: alpha(opacity=50);">Give Your Opinion</button>     
-                 </form>
+                 </form> 
+              
+            </div>
+                 
+                
+            </div>
+                 
+                 <div class="affix">
+                 
+             <h5>About Organization:</h5>
+                 
+                 <p ${Info}</p>
+                 
                  </div>
+                
+                 
+        </div>
                     </div>
-                
-                </div>
-                
-    
+                    
     </body>
 </html>

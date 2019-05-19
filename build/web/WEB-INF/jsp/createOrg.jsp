@@ -105,7 +105,13 @@ p {
                 <h4 style="color:white">Institution   :</h4><input type="text" name="Institution" /> <br>
                 
                 <h4 style="color:white">Upload your profile photo :</h4>
-                <input type="file" name="pp" size="20"/>
+                <!--<input type="file" name="pp" size="20"/>--> 
+                <input class="form-control"  name="file" type="file" accept="image/png, image/jpeg,image/gif" onchange="readURL(this);" />
+<input type="hidden" name="pp" value="${file}" />
+<img id="blah" src="data:image/jpg;base64,#" alt="your image5" />
+<button type = "submit" name="action1" onclick="sortByDateeeee()" class = "btn btn-block" style="background-color:  #333"><strong style="color: #dbdbdb">Post</strong></button>
+ 
+                
              
             </div>
                         <%--<a href="/StreetChild/login"><div class="btn" style="position: relative;left: 150px;top: 50px;height: 20px;width: 70px">Create</div>
@@ -128,7 +134,11 @@ p {
                 <h4 style="color:white">Organization Contact No   :</h4><input type="text" name="orgcontact" /> <br>
                 
                  <h4 style="color:white">Upload Organization cover photo :</h4>
-                <input type="file" name="pp" size="20"/>
+                <!--<input type="file" name="pp" size="20"/>-->
+                  <input class="form-control"  name="file" type="file" accept="image/png, image/jpeg,image/gif" onchange="readURL(this);" />
+
+                <input type="hidden" name="pp" value="${file}" />
+<img id="blah" src="data:image/jpg;base64,#" alt="your image" />
              
             </div>
                         <%--<a href="/StreetChild/login"><div class="btn" style="position: relative;left: 150px;top: 50px;height: 20px;width: 70px">Create</div>
@@ -140,7 +150,7 @@ p {
           </div>
          </div>
       </div>
-           <div><button type="submit" class="btn btn-block" style="background-color: #122b40" name="action1"><strong style="color: #ebebeb">Submit</strong></button></div>
+           <div><button type="submit" class="btn btn-block" onclick="sortByDateeeee()" style="background-color: #122b40" name="action1"><strong style="color: #ebebeb">Submit</strong></button></div>
     </div>
            </form>
                      

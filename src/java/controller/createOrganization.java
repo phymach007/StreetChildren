@@ -11,7 +11,7 @@
 package controller;
 
 import database.DataAccess;
-import javax.resource.spi.AdministeredObject;
+//import javax.resource.spi.AdministeredObject;
 import model.AdminInfo;
 import model.userInfo;
 import org.springframework.context.ApplicationContext;
@@ -56,7 +56,7 @@ public class createOrganization{
      
       DataAccess db = new DataAccess();
       
-          System.out.println(adminInfo.getName());
+          /*System.out.println(adminInfo.getName());
           System.out.println(adminInfo.getEmail());
           System.out.println(adminInfo.getPassword());
           System.out.println(adminInfo.getConfirmpassword());
@@ -66,7 +66,7 @@ public class createOrganization{
           System.out.println(adminInfo.getOrgName());
           System.out.println(adminInfo.getOrgcontact());
           System.out.println(adminInfo.getOrglocation());
-          System.out.println(adminInfo.getInfo());
+          System.out.println(adminInfo.getInfo());*/
      
     if (adminInfo.getPassword().equals(adminInfo.getConfirmpassword())){
           db.AdminAccount(adminInfo.getName(),adminInfo.getEmail(),adminInfo.getPassword(),adminInfo.getContactNo(), adminInfo.getOccupation(), adminInfo.getInstitution(),adminInfo.getInfo(),
